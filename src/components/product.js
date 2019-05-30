@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
-import { add, remove } from '../actions'
+import { add, remove } from '../actions';
+import { Link } from "react-router-dom"
+
 
 class Product extends Component {
   constructor(props) {
@@ -18,6 +20,7 @@ class Product extends Component {
 
     return (
         <Card>
+          <Link to={`/products/${product.name}`}>
           <CardBody>
             <CardTitle className="font-weight-bold text-center">
               {product.name}
@@ -26,6 +29,7 @@ class Product extends Component {
             <p><b>Price:</b> {product.price}</p>
             <img src={product.image} alt="noimage" height="100" width="100"></img>
           </CardBody>
+          </Link>
           <button onClick={this.add}> <img src="https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/256x256/shopping_cart_full.png" width="20" height="20" id="fullcart" alt="fullcart" /></button>
           <button onClick={this.remove}> <img src="https://image.flaticon.com/icons/svg/34/34568.svg" width="20" height="20" id="emptycart" alt="emptycart" /></button>
 
@@ -36,7 +40,7 @@ class Product extends Component {
 
 function mapStateToProps(state) {
   return {
-    cart: state.cart
+    cart: [...state.cart]
   };
 }
 
